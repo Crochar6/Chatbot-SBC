@@ -3,6 +3,7 @@ import ast
 
 
 def import_raw():
+    # Import datasets
     metadata = pd.read_csv('datasets/movies_metadata.csv',
                            usecols=['id', 'title', 'genres', 'vote_average', 'vote_count', 'original_language',
                                     'runtime', 'release_date', 'overview'],
@@ -14,7 +15,11 @@ def import_raw():
                            converters={1: ast.literal_eval})    # Reformat String -> List of Dictionaries
     keywords['id'] = keywords['id'].astype(str)
 
+    # Create merged database
     df = pd.merge(metadata, keywords, on='id', how='inner')
+
+    # Clean data
+    df.dropna(inplace=True)
 
     return df
 
