@@ -1,5 +1,16 @@
 import pandas as pd
 import ast
+import re
+
+
+def tokenize(message):
+    # Eliminate unwanted characters
+    regex = re.compile('[,.!?+*/^()=`´#%|]')
+    message = regex.sub('', message)
+    # Tokenization
+    message = message.lower()
+    message = message.split()
+    return message
 
 
 def import_raw():
@@ -21,9 +32,15 @@ def import_raw():
     # Clean data
     df.dropna(inplace=True)
 
+    # Stats
+    print(df.info())
+
     return df
 
 
 if __name__ == "__main__":
     database = import_raw()
-    print(database.info())
+    while True:
+        user_msg = input()
+        print(tokenize(user_msg))
+
