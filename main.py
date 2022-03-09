@@ -54,7 +54,7 @@ def identify_genre(genres, message):
                 if token == keyword or token == keyword + "s" or token == keyword + "es":
                     result_genres.add(genre['name'])
                     result_keywords.add(keyword)
-    return result_genres
+    return result_genres, result_keywords
 
 
 if __name__ == "__main__":
@@ -64,6 +64,7 @@ if __name__ == "__main__":
     while True:
         user_msg = input()
         user_msg = tokenize(user_msg)
-        print(identify_genre(genre_keywords, user_msg))
+        msg_genres, msg_keywords = identify_genre(genre_keywords, user_msg)
+        print()
 
 
