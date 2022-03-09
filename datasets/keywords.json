@@ -1,23 +1,51 @@
 {
   "keywords": {
-    "genres": {
-      "drama": ["drama", "dramatic", "tense", "dark", "die", "kill", "killed", "blood", "tragedy"],
-      "thriller": ["thriller", "tense", "detective", "killer", "murder", "murderer", "tragedy", "tough", "dark", "police", "noir", "conspiracy"],
-      "crime": ["crime", "criminal", "kill", "killed", "casino", "crew", "thief", "steal", "stole", "assassin", "assassinated", "murdered", "detective", "blood", "murder",
-        "murderer", "investigation"],
-      "horror": ["horror", "scary", "scare", "jumpscare", "vampire", "zombie", "ghost", "spirit", "demon"],
-      "adventure": ["adventure", "explore", "explorer", "discover", "discovery", "mystery", "mysterious"],
-      "romantic": ["romantic", "love", "lovers", "kiss", "couple", "affair", "romance"],
-      "comedy": ["comedy", "comedic", "laugh", "funny", "entertain"],
-      "action": ["action", "fight", "shoot", "shot", "kill", "killed", "chase", "punch", "punches", "sword", "knife", "gun", "gunshot", "heist", "bullet"],
-      "history": ["history", "past"],
-      "animation": ["animation", "animated", "kid", "children", "stop-motion", "toy"],
-      "fantasy": ["fantasy", "elf", "orc", "wizard", "magic", "fly", "unicorn", "gnome", "gnomes", "imagine", "dream", "creature", "spell", "witch", "witches",
-        "dragon"],
-      "war": ["war", "fight", "prisoner", "battle", "soldier", "army", "armor", "weapon", "sword", "gun", "gunfire", "gunshot", "battleship", "battleground",
-        "command", "order", "attack"],
-      "documentary": ["documentary", "animal", "biography", "autobiography", "interview"],
-      "science-fiction": ["alien", "extraterrestrial", "ufo", "unidentified", "science", "conspiracy", "mind-control", "cyborg", "future", "past", "time-travel"]
-    }
+    "genres": [
+      { "name": "Drama",
+        "keywords": ["drama", "dramatic", "tense", "dark", "die", "kill", "killed", "blood", "tragedy"]
+      },
+      { "name": "Thriller",
+        "keywords": ["thriller", "tense", "detective", "killer", "murder", "murderer", "tragedy", "tough", "dark", "police", "noir", "conspiracy"]
+      },
+      { "name": "Crime",
+        "keywords": ["crime", "criminal", "kill", "killed", "casino", "crew", "thief", "steal", "stole", "assassin", "assassinated", "murdered", "detective", "blood",
+          "murder", "murderer", "investigation"]
+      },
+      { "name": "Horror",
+        "keywords": ["horror", "scary", "scare", "jumpscare", "vampire", "zombie", "ghost", "spirit", "demon"]
+      },
+      { "name": "Adventure",
+        "keywords": ["adventure", "explore", "explorer", "discover", "discovery", "mystery", "mysterious"]
+      },
+      { "name": "Romance",
+        "keywords": ["romantic", "love", "lovers", "kiss", "couple", "affair", "romance"]
+      },
+      { "name": "Comedy",
+        "keywords": ["comedy", "comedic", "laugh", "funny", "entertain"]
+      },
+      { "name": "Action",
+        "keywords": ["action", "fight", "shoot", "shot", "kill", "killed", "chase", "punch", "punches", "sword", "knife", "gun", "gunshot", "heist", "bullet"]
+      },
+      { "name": "history",
+        "keywords": ["history", "past", "event"]
+      },
+      { "name": "Animation",
+        "keywords": ["animation", "animated", "kid", "children", "stop-motion", "toy"]
+      },
+      { "name": "Fantasy",
+        "keywords": ["fantasy", "elf", "orc", "wizard", "magic", "fly", "unicorn", "gnome", "gnomes", "imagine", "dream", "creature", "spell", "witch", "witches",
+          "dragon"]
+      },
+      { "name": "War",
+        "keywords": ["war", "fight", "prisoner", "battle", "soldier", "army", "armor", "weapon", "sword", "gun", "gunfire", "gunshot", "battleship", "battleground",
+          "command", "order", "attack"]
+      },
+      { "name": "Documentary",
+        "keywords": ["documentary", "animal", "biography", "autobiography", "interview"]
+      },
+      { "name": "Science Fiction",
+        "keywords": ["alien", "extraterrestrial", "ufo", "unidentified", "science", "conspiracy", "mind-control", "cyborg", "future", "past", "time-travel"]
+      }
+    ]
   }
 }
