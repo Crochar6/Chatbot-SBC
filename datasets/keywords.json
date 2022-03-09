@@ -1,0 +1,23 @@
+{
+  "keywords": {
+    "genres": {
+      "drama": ["drama", "dramatic", "tense", "dark", "die", "kill", "killed", "blood", "tragedy"],
+      "thriller": ["thriller", "tense", "detective", "killer", "murder", "murderer", "tragedy", "tough", "dark", "police", "noir", "conspiracy"],
+      "crime": ["crime", "criminal", "kill", "killed", "casino", "crew", "thief", "steal", "stole", "assassin", "assassinated", "murdered", "detective", "blood", "murder",
+        "murderer", "investigation"],
+      "horror": ["horror", "scary", "scare", "jumpscare", "vampire", "zombie", "ghost", "spirit", "demon"],
+      "adventure": ["adventure", "explore", "explorer", "discover", "discovery", "mystery", "mysterious"],
+      "romantic": ["romantic", "love", "lovers", "kiss", "couple", "affair", "romance"],
+      "comedy": ["comedy", "comedic", "laugh", "funny", "entertain"],
+      "action": ["action", "fight", "shoot", "shot", "kill", "killed", "chase", "punch", "punches", "sword", "knife", "gun", "gunshot", "heist", "bullet"],
+      "history": ["history", "past"],
+      "animation": ["animation", "animated", "kid", "children", "stop-motion", "toy"],
+      "fantasy": ["fantasy", "elf", "orc", "wizard", "magic", "fly", "unicorn", "gnome", "gnomes", "imagine", "dream", "creature", "spell", "witch", "witches",
+        "dragon"],
+      "war": ["war", "fight", "prisoner", "battle", "soldier", "army", "armor", "weapon", "sword", "gun", "gunfire", "gunshot", "battleship", "battleground",
+        "command", "order", "attack"],
+      "documentary": ["documentary", "animal", "biography", "autobiography", "interview"],
+      "science-fiction": ["alien", "extraterrestrial", "ufo", "unidentified", "science", "conspiracy", "mind-control", "cyborg", "future", "past", "time-travel"]
+    }
+  }
+}
