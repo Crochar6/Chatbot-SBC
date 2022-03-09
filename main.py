@@ -46,13 +46,15 @@ def import_keywords():
 
 
 def identify_genre(genres, message):
-    result = set([])
+    result_genres = set([])
+    result_keywords = set([])
     for token in message:
         for genre in genres:
             for keyword in genre['keywords']:
                 if token == keyword or token == keyword + "s" or token == keyword + "es":
-                    result.add(genre['name'])
-    return result
+                    result_genres.add(genre['name'])
+                    result_keywords.add(keyword)
+    return result_genres
 
 
 if __name__ == "__main__":
