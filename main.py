@@ -65,6 +65,6 @@ if __name__ == "__main__":
         user_msg = input()
         user_msg = tokenize(user_msg)
         msg_genres, msg_keywords = identify_genre(genre_keywords, user_msg)
-        print()
+        print(msg_genres, msg_keywords)
 
 
