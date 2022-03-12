@@ -20,15 +20,20 @@ def import_raw():
                            usecols=['id', 'title', 'genres', 'vote_average', 'vote_count', 'original_language',
                                     'runtime', 'release_date', 'overview'],
                            header=0,
-                           converters={3: ast.literal_eval})    # Reformat String -> List of Dictionaries
+                           converters={3: ast.literal_eval},)    # Reformat String -> List of Dictionaries
     metadata['id'] = metadata['id'].astype(str)
     keywords = pd.read_csv('datasets/keywords.csv',
                            header=0,
-                           converters={1: ast.literal_eval})    # Reformat String -> List of Dictionaries
+                           converters={1: ast.literal_eval})
     keywords['id'] = keywords['id'].astype(str)
+    credits = pd.read_csv('datasets/credits.csv',
+                           header=0,
+                           converters={1: ast.literal_eval, 2: ast.literal_eval})
+    credits['id'] = credits['id'].astype(str)
 
     # Create merged database
-    df = pd.merge(metadata, keywords, on='id', how='inner')
+    tmp = pd.merge(metadata, keywords, on='id', how='inner')
+    df = pd.merge(tmp, credits, on='id', how='inner')
 
     # Clean data
     df.dropna(inplace=True)
@@ -57,6 +62,24 @@ def identify_genre(genres, message):
                     if genre['name'] != 'extra':
                         result_genres.add(genre['name'])
     return result_genres, result_keywords
+
+
+# Generates "persons.txt" that contains all relevant names
+def generate_person_list(df):
+    person_set = set([])
+    for row in df.itertuples():
+        for role in ast.literal_eval(row.cast):
+            person_set.add(role['name'])
+        for role in row.crew:
+            job = role['job']
+            if job == 'Producer' or job == 'Director' or job == 'Music' \
+                    or job == 'Original Music Composer' or job == 'Original Story' \
+                    or job == 'Director of Photography' or job == 'Writer' \
+                    or job == 'Co-Writer':
+                person_set.add(role['name'])
+
+    with open('persons.txt', 'w', encoding="utf-8") as f:
+        f.write(str(sorted(person_set)))
 
 
 if __name__ == "__main__":
