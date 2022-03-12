@@ -12,13 +12,13 @@
           "murder", "murderer", "investigation"]
       },
       { "name": "Horror",
-        "keywords": ["horror", "scary", "scare", "jumpscare", "vampire", "zombie", "ghost", "spirit", "demon"]
+        "keywords": ["horror", "scary", "scare", "jumpscare", "vampire", "zombie", "ghost", "spirit", "demon", "possess", "possessed"]
       },
       { "name": "Adventure",
         "keywords": ["adventure", "explore", "explorer", "discover", "discovery", "mystery", "mysterious"]
       },
       { "name": "Romance",
-        "keywords": ["romantic", "love", "lovers", "kiss", "couple", "affair", "romance"]
+        "keywords": ["romantic", "love", "lovers", "kiss", "couple", "affair", "romance", "marry"]
       },
       { "name": "Comedy",
         "keywords": ["comedy", "comedic", "laugh", "funny", "entertain"]
@@ -30,11 +30,11 @@
         "keywords": ["history", "past", "event"]
       },
       { "name": "Animation",
-        "keywords": ["animation", "animated", "kid", "children", "stop-motion", "toy"]
+        "keywords": ["animation", "animated", "kid", "children", "child", "stop-motion", "toy", "cartoon"]
       },
       { "name": "Fantasy",
         "keywords": ["fantasy", "elf", "orc", "wizard", "magic", "fly", "unicorn", "gnome", "gnomes", "imagine", "dream", "creature", "spell", "witch", "witches",
-          "dragon"]
+          "dragon", "magic", "magical"]
       },
       { "name": "War",
         "keywords": ["war", "fight", "prisoner", "battle", "soldier", "army", "armor", "weapon", "sword", "gun", "gunfire", "gunshot", "battleship", "battleground",
@@ -44,7 +44,11 @@
         "keywords": ["documentary", "animal", "biography", "autobiography", "interview"]
       },
       { "name": "Science Fiction",
-        "keywords": ["alien", "extraterrestrial", "ufo", "unidentified", "science", "conspiracy", "mind-control", "cyborg", "future", "past", "time-travel"]
+        "keywords": ["alien", "extraterrestrial", "ufo", "unidentified", "science", "conspiracy", "mind-control", "cyborg", "future", "past", "time-travel", "ia",
+          "chatbot", "bot", "robot", "invention", "inventor"]
+      },
+      { "name": "extra",
+        "keywords": ["portal", "travel", "nazi", "music", "musical"]
       }
     ]
   }
