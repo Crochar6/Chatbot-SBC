@@ -52,8 +52,10 @@ def identify_genre(genres, message):
         for genre in genres:
             for keyword in genre['keywords']:
                 if token == keyword or token == keyword + "s" or token == keyword + "es":
-                    result_genres.add(genre['name'])
                     result_keywords.add(keyword)
+                    # "extra" category for keywords with no genre
+                    if genre['name'] != 'extra':
+                        result_genres.add(genre['name'])
     return result_genres, result_keywords
 
 
