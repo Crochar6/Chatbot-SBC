@@ -1,6 +1,7 @@
 import pandas as pd
 import ast
 import re
+import json
 
 
 def tokenize(message):
@@ -33,14 +34,39 @@ def import_raw():
     df.dropna(inplace=True)
 
     # Stats
-    print(df.info())
+    #print(df.info())
 
     return df
 
 
+def import_keywords():
+    with open('datasets/keywords.json') as f:
+        data = json.load(f)
+    return data
+
+
+def identify_genre(genres, message):
+    result_genres = set([])
+    result_keywords = set([])
+    for token in message:
+        for genre in genres:
+            for keyword in genre['keywords']:
+                if token == keyword or token == keyword + "s" or token == keyword + "es":
+                    result_keywords.add(keyword)
+                    # "extra" category for keywords with no genre
+                    if genre['name'] != 'extra':
+                        result_genres.add(genre['name'])
+    return result_genres, result_keywords
+
+
 if __name__ == "__main__":
     database = import_raw()
+    keywords = import_keywords()
+    genre_keywords = keywords['keywords']['genres']
     while True:
         user_msg = input()
-        print(tokenize(user_msg))
+        user_msg = tokenize(user_msg)
+        msg_genres, msg_keywords = identify_genre(genre_keywords, user_msg)
+        print(msg_genres, msg_keywords)
+
 
