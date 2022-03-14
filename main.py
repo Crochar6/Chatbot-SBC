@@ -2,6 +2,7 @@ import pandas as pd
 import ast
 import re
 import json
+from os.path import exists
 
 
 def tokenize(message):
@@ -64,26 +65,36 @@ def identify_genre(genres, message):
     return result_genres, result_keywords
 
 
+def identify_persons(person_db, message):
+    print("hola")
+
+
 # Generates "persons.txt" that contains all relevant names
 def generate_person_list(df):
-    person_set = set([])
-    for row in df.itertuples():
-        for role in ast.literal_eval(row.cast):
-            person_set.add(role['name'])
-        for role in row.crew:
-            job = role['job']
-            if job == 'Producer' or job == 'Director' or job == 'Music' \
-                    or job == 'Original Music Composer' or job == 'Original Story' \
-                    or job == 'Director of Photography' or job == 'Writer' \
-                    or job == 'Co-Writer':
+    if not exists('persons.txt'):
+        person_set = set([])
+        for row in df.itertuples():
+            for role in ast.literal_eval(row.cast):
                 person_set.add(role['name'])
+            for role in row.crew:
+                job = role['job']
+                if job == 'Producer' or job == 'Director' or job == 'Music' \
+                        or job == 'Original Music Composer' or job == 'Original Story' \
+                        or job == 'Director of Photography' or job == 'Writer' \
+                        or job == 'Co-Writer':
+                    person_set.add(role['name'])
 
-    with open('persons.txt', 'w', encoding="utf-8") as f:
-        f.write(str(sorted(person_set)))
+        with open('persons.txt', 'w', encoding="utf-8") as f:
+            f.write(str(sorted(person_set)))
+
+    with open('persons.txt', 'r', encoding="utf-8") as f:
+        return ast.literal_eval(f.read())
 
 
 if __name__ == "__main__":
     database = import_raw()
+    persons = generate_person_list(database)
+    print(type(persons))
     keywords = import_keywords()
     genre_keywords = keywords['keywords']['genres']
     while True:
