@@ -16,33 +16,41 @@ def tokenize(message):
 
 
 def import_raw():
-    # Import datasets
-    metadata = pd.read_csv('datasets/movies_metadata.csv',
-                           usecols=['id', 'title', 'genres', 'vote_average', 'vote_count', 'original_language',
-                                    'runtime', 'release_date', 'overview'],
-                           header=0,
-                           converters={3: ast.literal_eval},)    # Reformat String -> List of Dictionaries
-    metadata['id'] = metadata['id'].astype(str)
-    keywords = pd.read_csv('datasets/keywords.csv',
-                           header=0,
-                           converters={1: ast.literal_eval})
-    keywords['id'] = keywords['id'].astype(str)
-    credits = pd.read_csv('datasets/credits.csv',
-                           header=0,
-                           converters={1: ast.literal_eval, 2: ast.literal_eval})
-    credits['id'] = credits['id'].astype(str)
 
-    # Create merged database
-    tmp = pd.merge(metadata, keywords, on='id', how='inner')
-    df = pd.merge(tmp, credits, on='id', how='inner')
+    if not exists('datasets/movies_data.pkl'):
+        print("Creating movies dataframe using csv files...")
+        # Import datasets
+        metadata = pd.read_csv('datasets/movies_metadata.csv',
+                               usecols=['id', 'title', 'genres', 'vote_average', 'vote_count', 'original_language',
+                                        'runtime', 'release_date', 'overview'],
+                               header=0,
+                               converters={3: ast.literal_eval},)    # Reformat String -> List of Dictionaries
+        metadata['id'] = metadata['id'].astype(str)
+        keywords = pd.read_csv('datasets/keywords.csv',
+                               header=0,
+                               converters={1: ast.literal_eval})
+        keywords['id'] = keywords['id'].astype(str)
+        credits = pd.read_csv('datasets/credits.csv',
+                               header=0,
+                               converters={1: ast.literal_eval, 2: ast.literal_eval})
+        credits['id'] = credits['id'].astype(str)
 
-    # Clean data
-    df.dropna(inplace=True)
+        # Create merged database
+        tmp = pd.merge(metadata, keywords, on='id', how='inner')
+        df = pd.merge(tmp, credits, on='id', how='inner')
 
+        # Clean data (remove null rows)
+        df.dropna(inplace=True)
+
+        # Save data
+        df.to_pickle('datasets/movies_data.pkl')
+
+    # Read saved info
+    movies_df = pd.read_pickle('datasets/movies_data.pkl')
     # Stats
-    #print(df.info())
+    # print(movies_df.info())
 
-    return df
+    return movies_df
 
 
 def import_keywords():
@@ -71,7 +79,8 @@ def identify_persons(person_db, message):
 
 # Generates "persons.txt" that contains all relevant names
 def generate_person_list(df):
-    if not exists('persons.txt'):
+    if not exists('datasets/persons.txt'):
+        print("Creating person name list using database data...")
         person_set = set([])
         for row in df.itertuples():
             for role in ast.literal_eval(row.cast):
@@ -84,10 +93,10 @@ def generate_person_list(df):
                         or job == 'Co-Writer':
                     person_set.add(role['name'])
 
-        with open('persons.txt', 'w', encoding="utf-8") as f:
+        with open('datasets/persons.txt', 'w', encoding="utf-8") as f:
             f.write(str(sorted(person_set)))
 
-    with open('persons.txt', 'r', encoding="utf-8") as f:
+    with open('datasets/persons.txt', 'r', encoding="utf-8") as f:
         return ast.literal_eval(f.read())
 
 
