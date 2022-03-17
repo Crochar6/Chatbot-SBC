@@ -7,11 +7,14 @@ from os.path import exists
 
 def tokenize(message):
     # Eliminate unwanted characters
-    regex = re.compile('[,.!?+*/^()=`´#%|]')
-    message = regex.sub('', message)
+    regex_delete = re.compile('[,.!?+*/^()=`´#%|]')
+    regex_space = re.compile('\'s(\s+|$)') # Search for " 's " and remove them
+    message = regex_delete.sub('', message)
+    message = regex_space.sub(' ', message)
     # Tokenization
     message = message.lower()
     message = message.split()
+    print(message)
     return message
 
 
@@ -73,8 +76,13 @@ def identify_genre(genres, message):
     return result_genres, result_keywords
 
 
-def identify_persons(person_db, message):
-    print("hola")
+def identify_persons(person_set, message):
+    found_names = set([])
+    for i in range(len(message)-1):
+        name_candidate = message[i]+' '+message[i+1]
+        if name_candidate in person_set:
+            found_names.add(name_candidate)
+    return found_names
 
 
 # Generates "persons.txt" that contains all relevant names
@@ -91,7 +99,7 @@ def generate_person_list(df):
                         or job == 'Original Music Composer' or job == 'Original Story' \
                         or job == 'Director of Photography' or job == 'Writer' \
                         or job == 'Co-Writer':
-                    person_set.add(role['name'])
+                    person_set.add(role['name'].lower())
 
         with open('datasets/persons.txt', 'w', encoding="utf-8") as f:
             f.write(str(sorted(person_set)))
@@ -103,13 +111,12 @@ def generate_person_list(df):
 if __name__ == "__main__":
     database = import_raw()
     persons = generate_person_list(database)
-    print(type(persons))
     keywords = import_keywords()
     genre_keywords = keywords['keywords']['genres']
+    print('Initialization complete!')
     while True:
         user_msg = input()
         user_msg = tokenize(user_msg)
         msg_genres, msg_keywords = identify_genre(genre_keywords, user_msg)
-        print(msg_genres, msg_keywords)
-
-
+        msg_names = identify_persons(persons, user_msg)
+        print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
