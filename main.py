@@ -35,7 +35,7 @@ def import_raw():
         keywords['id'] = keywords['id'].astype(str)
         credits = pd.read_csv('datasets/credits.csv',
                                header=0,
-                               converters={0: ast.literal_eval, 1: ast.literal_eval})
+                               converters={0: ast.literal_eval, 1: ast.literal_eval, 2: ast.literal_eval})
         credits['id'] = credits['id'].astype(str)
 
         # Create merged database
@@ -43,10 +43,10 @@ def import_raw():
         df = pd.merge(tmp, credits, on='id', how='inner')
 
         # Map to sets
-        df['genres'] = df['genres'].map(lambda genre: set([dict['name'] for dict in genre]))
-        df['cast'] = df['cast'].map(lambda genre: set([dict['name'] for dict in genre]))
-        df['crew'] = df['crew'].map(lambda genre: set([dict['name'] for dict in genre]))
-        df['keywords'] = df['keywords'].map(lambda genre: set([dict['name'] for dict in genre]))
+        df['genres_set'] = df['genres'].map(lambda genres: set([dict['name'] for dict in genres]))
+        df['cast_set'] = df['cast'].map(lambda cast: set([dict['name'] for dict in cast]))
+        df['crew_set'] = df['crew'].map(lambda crew: set([dict['name'] for dict in crew]))
+        df['keywords_set'] = df['keywords'].map(lambda keywords: set([dict['name'] for dict in keywords]))
 
         # Add custom columns
         df['likeness'] = 0
@@ -120,7 +120,7 @@ def generate_person_list(df):
 def punctuateGenres(df, genres, weight):
     incremented = 0
     for index, row in df.iterrows():
-        if len(row['genres'].intersection(genres)) > 0:
+        if len(row['genres_set'].intersection(genres)) > 0:
             df.loc[index, 'likeness'] += weight
             incremented += 1
     return incremented
@@ -128,7 +128,7 @@ def punctuateGenres(df, genres, weight):
 def punctuateKeywords(df, keywords, weight):
     incremented = 0
     for index, row in df.iterrows():
-        if len(row['keywords'].intersection(keywords)) > 0 or \
+        if len(row['keywords_set'].intersection(keywords)) > 0 or \
                 any([word in row['overview'] for word in keywords]):    # Search keywords inside
             df.loc[index, 'likeness'] += weight
             incremented += 1
