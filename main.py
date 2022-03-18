@@ -117,7 +117,7 @@ def generate_person_list(df):
         return ast.literal_eval(f.read())
 
 
-def punctuateGenres(df, genres, weight):
+def punctuate_genres(df, genres, weight):
     incremented = 0
     for index, row in df.iterrows():
         if len(row['genres_set'].intersection(genres)) > 0:
@@ -125,7 +125,8 @@ def punctuateGenres(df, genres, weight):
             incremented += 1
     return incremented
 
-def punctuateKeywords(df, keywords, weight):
+
+def punctuate_keywords(df, keywords, weight):
     incremented = 0
     for index, row in df.iterrows():
         if len(row['keywords_set'].intersection(keywords)) > 0 or \
@@ -141,8 +142,8 @@ if __name__ == "__main__":
     keywords = import_keywords()
     genre_keywords = keywords['keywords']['genres']
     print('Initialization complete!')
-    print(punctuateGenres(database, {'Horror'}, 1))
-    print(punctuateKeywords(database, {'fun', 'kids', 'family', 'spirit'}, 1.5))
+    print(punctuate_genres(database, {'Horror'}, 1))
+    print(punctuate_keywords(database, {'fun', 'kids', 'family', 'spirit'}, 1.5))
     while True:
         user_msg = input()
         user_msg = tokenize(user_msg)
