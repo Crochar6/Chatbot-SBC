@@ -35,12 +35,21 @@ def import_raw():
         keywords['id'] = keywords['id'].astype(str)
         credits = pd.read_csv('datasets/credits.csv',
                                header=0,
-                               converters={1: ast.literal_eval, 2: ast.literal_eval})
+                               converters={0: ast.literal_eval, 1: ast.literal_eval})
         credits['id'] = credits['id'].astype(str)
 
         # Create merged database
         tmp = pd.merge(metadata, keywords, on='id', how='inner')
         df = pd.merge(tmp, credits, on='id', how='inner')
+
+        # Map to sets
+        df['genres'] = df['genres'].map(lambda genre: set([dict['name'] for dict in genre]))
+        df['cast'] = df['cast'].map(lambda genre: set([dict['name'] for dict in genre]))
+        df['crew'] = df['crew'].map(lambda genre: set([dict['name'] for dict in genre]))
+        df['keywords'] = df['keywords'].map(lambda genre: set([dict['name'] for dict in genre]))
+
+        # Add custom columns
+        df['likeness'] = 0
 
         # Clean data (remove null rows)
         df.dropna(inplace=True)
@@ -91,7 +100,7 @@ def generate_person_list(df):
         print("Creating person name list using database data...")
         person_set = set([])
         for row in df.itertuples():
-            for role in ast.literal_eval(row.cast):
+            for role in row.cast:
                 person_set.add(role['name'])
             for role in row.crew:
                 job = role['job']
@@ -108,12 +117,20 @@ def generate_person_list(df):
         return ast.literal_eval(f.read())
 
 
+def punctuateGenres(df, genres, value):
+    for index, row in df.iterrows():
+        if len(row['genres'].intersection(genres)) > 0:
+            df.loc[index, 'likeness'] += value
+
+
 if __name__ == "__main__":
     database = import_raw()
     persons = generate_person_list(database)
     keywords = import_keywords()
     genre_keywords = keywords['keywords']['genres']
     print('Initialization complete!')
+    punctuateGenres(database, {'Horror'}, 1)
+    print(database.head(20))
     while True:
         user_msg = input()
         user_msg = tokenize(user_msg)
