@@ -6,6 +6,13 @@ from os.path import exists
 
 
 def tokenize(message):
+    """
+    tokenize: Parses the input string into a list of tokens
+    Special characters are removed and string is split by the spaces,
+    also "'s" are removed from ends of words.
+    :param message: String to be tokenized
+    :return: List of tokens
+    """
     # Eliminate unwanted characters
     regex_delete = re.compile('[,.!?+*/^()=`´#%|]')
     regex_space = re.compile('\'s(\s+|$)') # Search for " 's " and remove them
@@ -19,7 +26,14 @@ def tokenize(message):
 
 
 def import_raw():
-
+    """
+    import_raw: Creates a unified dataset
+    Partial csv are cleaned and merged, many values are evaluated
+    to turn them into python objects like lists and dictionaries.
+    Some columns are duplicated as a unique set of values, to
+    enable faster search.
+    :return: Resulting dataframe
+    """
     if not exists('datasets/movies_data.pkl'):
         print("Creating movies dataframe using csv files...")
         # Import datasets
@@ -66,16 +80,26 @@ def import_raw():
 
 
 def import_keywords():
+    """
+    import_keywords: Loads the keywords.json file
+    :return: Json data
+    """
     with open('datasets/keywords.json') as f:
         data = json.load(f)
     return data
 
 
 def identify_genre(genres, message):
+    """
+    identify_genre: Detects genres and keywords from a list of tokens
+    :param genres: Json genre keyword data
+    :param message: List of tokens
+    :return: Set of genres, set of keywords
+    """
     result_genres = set([])
     result_keywords = set([])
     for token in message:
-        for genre in genres:
+        for genre in genres['keywords']['genres']:
             for keyword in genre['keywords']:
                 if token == keyword or token == keyword + "s" or token == keyword + "es":
                     result_keywords.add(keyword)
@@ -86,6 +110,12 @@ def identify_genre(genres, message):
 
 
 def identify_persons(person_set, message):
+    """
+    identify_persons: Identifies 2 token names inside a list of tokens
+    :param person_set: Set of possible names
+    :param message: List of tokens
+    :return: Set of found names
+    """
     found_names = set([])
     for i in range(len(message)-1):
         name_candidate = message[i]+' '+message[i+1]
@@ -94,8 +124,13 @@ def identify_persons(person_set, message):
     return found_names
 
 
-# Generates "persons.txt" that contains all relevant names
 def generate_person_list(df):
+    """
+    generate_person_list: Generates a file of relevant persons
+    from every movie, both from crew and cast
+    :param df: Dataframe with movie info
+    :return: Set of unique person names
+    """
     if not exists('datasets/persons.txt'):
         print("Creating person name list using database data...")
         person_set = set([])
@@ -118,6 +153,14 @@ def generate_person_list(df):
 
 
 def punctuate_genres(df, genres, weight):
+    """
+    punctuate_genres: Increases the "likeness" of movies with
+    the specified genre
+    :param df: Dataframe with movie info
+    :param genres: Set of genres to identify
+    :param weight: Value to increment likeness by
+    :return: Number of moves modified
+    """
     incremented = 0
     for index, row in df.iterrows():
         if len(row['genres_set'].intersection(genres)) > 0:
@@ -127,6 +170,15 @@ def punctuate_genres(df, genres, weight):
 
 
 def punctuate_keywords(df, keywords, weight):
+    """
+    punctuate_genres: Increases the "likeness" of movies with
+    the specified keywords in the 'keywords' column or inside
+    their 'overview'.
+    :param df: Dataframe with movie info
+    :param keywords: Set of keywords to identify
+    :param weight: Value to increment likeness by
+    :return: Number of moves modified
+    """
     incremented = 0
     for index, row in df.iterrows():
         if len(row['keywords_set'].intersection(keywords)) > 0 or \
@@ -140,13 +192,10 @@ if __name__ == "__main__":
     database = import_raw()
     persons = generate_person_list(database)
     keywords = import_keywords()
-    genre_keywords = keywords['keywords']['genres']
     print('Initialization complete!')
-    print(punctuate_genres(database, {'Horror'}, 1))
-    print(punctuate_keywords(database, {'fun', 'kids', 'family', 'spirit'}, 1.5))
     while True:
         user_msg = input()
         user_msg = tokenize(user_msg)
-        msg_genres, msg_keywords = identify_genre(genre_keywords, user_msg)
+        msg_genres, msg_keywords = identify_genre(keywords, user_msg)
         msg_names = identify_persons(persons, user_msg)
         print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
