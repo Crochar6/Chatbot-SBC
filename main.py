@@ -38,7 +38,7 @@ def import_raw():
         print("Creating movies dataframe using csv files...")
         # Import datasets
         metadata = pd.read_csv('datasets/movies_metadata.csv',
-                               usecols=['id', 'title', 'genres', 'vote_average', 'vote_count', 'original_language',
+                               usecols=['id', 'title', 'original_title', 'genres', 'vote_average', 'vote_count', 'original_language',
                                         'runtime', 'release_date', 'overview'],
                                header=0,
                                converters={3: ast.literal_eval},)    # Reformat String -> List of Dictionaries
@@ -205,17 +205,19 @@ def punctuate_persons(df, persons, weight):
     return incremented
 
 
-def punctuate_language(df, language, weight):
+def punctuate_language(df, languages, weight):
     """
     punctuate_persons: Increases the "likeness" of movies with
     the specified original language
     :param df: Dataframe with movie info
-    :param language: Language to punctuate
+    :param languages: Set of languages to punctuate
     :param weight: Value to increment likeness by
     :return: Number of moves modified
     """
-    incremented = len(df.loc[df['original_language'] == language])
-    df.loc[df['original_language'] == language, 'likeness'] += 1
+    incremented = 0
+    for language in languages:
+        incremented += len(df.loc[df['original_language'] == language])
+        df.loc[df['original_language'] == language, 'likeness'] += weight
     return incremented
 
 
