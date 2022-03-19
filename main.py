@@ -207,7 +207,7 @@ def punctuate_persons(df, persons, weight):
 
 def punctuate_language(df, languages, weight):
     """
-    punctuate_persons: Increases the "likeness" of movies with
+    punctuate_language: Increases the "likeness" of movies with
     the specified original language
     :param df: Dataframe with movie info
     :param languages: Set of languages to punctuate
@@ -223,7 +223,7 @@ def punctuate_language(df, languages, weight):
 
 def punctuate_movies(df, titles, weight):
     """
-    punctuate_persons: Increases the "likeness" of movies with
+    punctuate_movies: Increases the "likeness" of movies with
     the specified title, either the original one or translated to english
     :param df: Dataframe with movie info
     :param titles: Set of titles to punctuate
