@@ -188,6 +188,23 @@ def punctuate_keywords(df, keywords, weight):
     return incremented
 
 
+def punctuate_persons(df, persons, weight):
+    """
+    punctuate_persons: Increases the "likeness" of movies with
+    the specified persons
+    :param df: Dataframe with movie info
+    :param persons: Set of persons to identify
+    :param weight: Value to increment likeness by
+    :return: Number of moves modified
+    """
+    incremented = 0
+    for index, row in df.iterrows():
+        if len(row['cast_set'].intersection(persons)) > 0 or len(row['crew_set'].intersection(persons)) > 0:
+            df.loc[index, 'likeness'] += weight
+            incremented += 1
+    return incremented
+
+
 if __name__ == "__main__":
     database = import_raw()
     persons = generate_person_list(database)
