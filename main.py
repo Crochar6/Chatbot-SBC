@@ -55,17 +55,23 @@ def import_raw():
         tmp = pd.merge(metadata, keywords, on='id', how='inner')
         df = pd.merge(tmp, credits, on='id', how='inner')
 
+        # Clean data (remove null rows)
+        df.dropna(inplace=True)
+
         # Map to sets
         df['genres_set'] = df['genres'].map(lambda genres: set([dict['name'] for dict in genres]))
         df['cast_set'] = df['cast'].map(lambda cast: set([dict['name'] for dict in cast]))
         df['crew_set'] = df['crew'].map(lambda crew: set([dict['name'] for dict in crew]))
         df['keywords_set'] = df['keywords'].map(lambda keywords: set([dict['name'] for dict in keywords]))
 
-        # Add custom columns
+        # Calculate initial likeness based on vote_average
         df['likeness'] = 0
-
-        # Clean data (remove null rows)
-        df.dropna(inplace=True)
+        vote_count_mean = df['vote_count'].mean()                                               # Average votes
+        validity_threshold = 2/3                                                                # % of votes relating to the average needed for score to be valid
+        df.loc[df['vote_count'] > vote_count_mean * validity_threshold, 'likeness'] = df['vote_average']     # Initial likeness for movies with sufficient vote_counts
+        vote_average_mean = df.loc[df['likeness'] > 0, 'vote_average'].mean()                   # Calculate average score for valid movies
+        df.loc[df['likeness'] == 0, 'likeness'] = vote_average_mean                             # Assign average score for insufficiently voted movies
+        print(f'Imported {len(df)} movies')
 
         # Save data
         df.to_pickle('datasets/movies_data.pkl')
@@ -252,9 +258,15 @@ if __name__ == "__main__":
     persons = generate_person_list(database)
     keywords = import_keywords()
     print('Initialization complete!')
-    while True:
+    user_msg = ''
+    while user_msg != ['end']:
         user_msg = input()
         user_msg = tokenize(user_msg)
         msg_genres, msg_keywords = identify_genre(keywords, user_msg)
         msg_names = identify_persons(persons, user_msg)
+        punctuate_persons(database, msg_names, 1.3)
+        punctuate_genres(database, msg_genres, 1)
+        punctuate_keywords(database, msg_keywords, 0.8)
         print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
+    print('You would probably like these movies: ')
+    print(get_top_n_movies(database, 5)[['title', 'likeness']])
