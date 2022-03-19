@@ -21,7 +21,6 @@ def tokenize(message):
     # Tokenization
     message = message.lower()
     message = message.split()
-    print(message)
     return message
 
 
@@ -235,6 +234,17 @@ def punctuate_movies(df, titles, weight):
         incremented += len(df.loc[(df[['original_title', 'title']] == title).any(axis=1)])
         df.loc[(df[['original_title', 'title']] == title).any(axis=1), 'likeness'] += weight
     return incremented
+
+
+def get_top_n_movies(df, n):
+    """
+    get_top_n_movies: Returns the top n movies based
+    on the 'likeness' score
+    :param df: Dataframe with movie info
+    :param n: Number of movies to retrieve
+    :return: Number of moves modified
+    """
+    return df.sort_values('likeness', ascending=False).head(n)
 
 
 if __name__ == "__main__":
