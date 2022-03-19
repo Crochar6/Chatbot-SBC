@@ -205,6 +205,20 @@ def punctuate_persons(df, persons, weight):
     return incremented
 
 
+def punctuate_language(df, language, weight):
+    """
+    punctuate_persons: Increases the "likeness" of movies with
+    the specified original language
+    :param df: Dataframe with movie info
+    :param language: Language to punctuate
+    :param weight: Value to increment likeness by
+    :return: Number of moves modified
+    """
+    incremented = len(df.loc[df['original_language'] == language])
+    df.loc[df['original_language'] == language, 'likeness'] += 1
+    return incremented
+
+
 if __name__ == "__main__":
     database = import_raw()
     persons = generate_person_list(database)
