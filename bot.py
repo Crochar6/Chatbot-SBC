@@ -54,7 +54,6 @@ class Bot:
         self.state = future_state
         answer = random.choice(answers)
         if "concat" in self.state:
-            print(self.state['concat_chance'])
             if random.randrange(0, 99) < self.state['concat_chance']:
                 answer += random.choice(self.state['concat'])
 
