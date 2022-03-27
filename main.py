@@ -272,6 +272,7 @@ if __name__ == "__main__":
     responses = import_responses()
     bot = bot.Bot(responses)
     print('Initialization complete!')
+    print('You can begin talking with the bot!')
     user_msg = ''
     while user_msg != ['end']:
         user_msg = input()
