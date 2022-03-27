@@ -20,7 +20,7 @@
           "few": ["I have very little information for now, let's talk about movies a bit longer", "I am not sure yet what you would like, let's talk a bit more", "I don't have the necessary information yet to make a good recommendation yet, let's talk a bit more about what movies you like"],
           "ok": ["Here are the movies I think you would most enjoy:", "I think, based on your preferences, that you would love these movies:"]
         },
-      "trigger": ["what movies", "do you have a recommendation", "would I like", "recommend", "the results"]
+      "trigger": ["what movies", "do you have a recommendation", "would I like", "recommend", "the results", "i would like"]
     },
     {
       "name": "rate_movie",
