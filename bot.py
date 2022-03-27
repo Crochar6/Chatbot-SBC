@@ -1,4 +1,3 @@
-import pandas as pd
 import random
 import constant as const
 
@@ -18,11 +17,19 @@ class Bot:
         should_end = False
         answers = []
         user_message = " ".join(user_message)
+        user_data = {*genres, *keywords, *persons, *movies}
         for state in self.responses['states']:
             # If we don't understand the input
             if state['name'] == 'not_understand':
                 answers = state['answers']
                 break
+            elif state['name'] == 'got_info':
+                if len(user_data) > 0:
+                    answers = state['answers']
+                    self.information_factor += len(user_data)
+                    break
+                else:
+                    continue
 
             # Search in possible answers
             for trigger in state['trigger']:
@@ -41,4 +48,12 @@ class Bot:
 
         self.previous_state = self.state
         self.state = answers
-        return random.choice(answers), should_end
+        answer = random.choice(answers)
+        self.complement_message(answer, user_data)
+        return answer, should_end
+
+    @staticmethod
+    def complement_message(answer, user_data):
+        if const.ANY_FIELD in answer:
+            # Stubstitute ANY_FIELD with a piece fo data from the user
+            return answer.replace(const.ANY_FIELD, random.choice(user_data))
