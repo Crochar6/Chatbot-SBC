@@ -25,7 +25,7 @@
     },
     {
       "name": "got_info",
-      "answers": ["I like __INFO__ too!", "Interesting, I'll write that", "Okay, that makes sense, keep going", "Why is it that you like __INFO__ that", "So __INFO__... Let's talk more about that"]
+      "answers": ["I like __INFO__ too!", "Interesting, I'll write that", "Okay, that makes sense, keep going", "Why is it that you like __INFO__?", "What is it that you like about __INFO__?", "So __INFO__... Let's talk more about that"]
     },
     {
       "name": "not_understand",
