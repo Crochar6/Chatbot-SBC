@@ -282,7 +282,7 @@ if __name__ == "__main__":
         punctuate_genres(database, msg_genres, const.GENRE_WEIGHT)
         punctuate_keywords(database, msg_keywords, const.KEYWORD_WEIGHT)
         # print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
-        bot_answer, should_end = bot.calculate_response(user_msg, msg_genres, msg_keywords, msg_names, [])  # TODO: buscar noms de pel·lis
+        bot_answer, should_end = bot.calculate_response(user_msg, msg_keywords, msg_names, [])  # TODO: buscar noms de pel·lis
         print(bot_answer)
         if should_end:
             break

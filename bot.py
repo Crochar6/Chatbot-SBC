@@ -12,12 +12,12 @@ class Bot:
     def __init__(self, responses):
         self.responses = responses
 
-    def calculate_response(self, user_message, genres, keywords, persons, movies):
+    def calculate_response(self, user_message, keywords, persons, movies):
         """Calculates the answer the bot should type"""
         should_end = False
         answers = []
         user_message = " ".join(user_message)
-        user_data = {*genres, *keywords, *persons, *movies}
+        user_data = {*keywords, *persons, *movies}
         for state in self.responses['states']:
             # If we don't understand the input
             if state['name'] == 'not_understand':
@@ -49,11 +49,11 @@ class Bot:
         self.previous_state = self.state
         self.state = answers
         answer = random.choice(answers)
-        self.complement_message(answer, user_data)
+        answer = self.complement_message(answer, user_data)
         return answer, should_end
 
     @staticmethod
     def complement_message(answer, user_data):
         if const.ANY_FIELD in answer:
             # Stubstitute ANY_FIELD with a piece fo data from the user
-            return answer.replace(const.ANY_FIELD, random.choice(user_data))
+            return answer.replace(const.ANY_FIELD, random.choice(list(user_data)))
