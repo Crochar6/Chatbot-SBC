@@ -3,6 +3,7 @@ import ast
 import re
 import json
 from os.path import exists
+import bot
 
 
 def tokenize(message):
@@ -99,7 +100,7 @@ def import_responses():
     import_responses: Loads the bot-responses.json file
     :return: Json data
     """
-    with open('datasets/bot-responses.json') as f:
+    with open('datasets/bot_responses.json') as f:
         data = json.load(f)
     return data
 
@@ -268,6 +269,7 @@ if __name__ == "__main__":
     persons = generate_person_list(database)
     keywords = import_keywords()
     responses = import_responses()
+    bot = bot.Bot(responses)
     print('Initialization complete!')
     user_msg = ''
     while user_msg != ['end']:
@@ -279,5 +281,6 @@ if __name__ == "__main__":
         punctuate_genres(database, msg_genres, 1)
         punctuate_keywords(database, msg_keywords, 0.8)
         print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
+        print(bot.calculate_response(user_msg, msg_genres, msg_keywords, msg_names, []))  # TODO: buscar noms de pel·lis
     print('You would probably like these movies: ')
     print(get_top_n_movies(database, 5)[['title', 'likeness']])
