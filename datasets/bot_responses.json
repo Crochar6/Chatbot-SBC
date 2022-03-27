@@ -32,12 +32,12 @@
     {
       "name": "got_info",
       "answers": ["I like __INFO__ too!", "Interesting, I'll write that", "Okay, that makes sense", "Why is it that you like __INFO__?", "What is it that you like about __INFO__?", "So __INFO__..."],
-      "concat": [", let's talk more about that", ", keep going", ", what are other things you like in movies", ", we can talk about people too if you want, like actors and directors", ", can we talk about your favourite kind of movies?"],
+      "concat": [" Have you watched movies about __INFO__?"," Let's talk more about that", " Keep going please", " What are other things you like in movies", " We can talk about people too if you want, like actors and directors"],
       "concat_chance": 82
     },
     {
       "name": "not_understand",
-      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... What movie genres do you like?", "I understand", "What type of movies do you like?", "Do you like any specific actors or directors?", "Why is that?"]
+      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... What movie genres do you like?", "I understand", "What type of movies do you like?", "Do you like any specific actors or directors?", "Why is that?", " Can we talk about your favourite kind of movies?"]
     }
   ]
 }
