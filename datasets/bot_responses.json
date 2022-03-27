@@ -24,8 +24,12 @@
       "trigger": ["i watched", "already watched", "have watched"]
     },
     {
+      "name": "got_info",
+      "answers": ["I like __INFO__ too!", "Interesting, I'll write that", "Okay, that makes sense, keep going", "Why is it that you like __INFO__ that", "So __INFO__... Let's talk more about that"]
+    },
+    {
       "name": "not_understand",
-      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... What movie genres do you like?", "I understand", "What type of movies do you like?", "Do you like any specific actors or directors?"]
+      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... What movie genres do you like?", "I understand", "What type of movies do you like?", "Do you like any specific actors or directors?", "Why is that?"]
     }
   ]
 }
