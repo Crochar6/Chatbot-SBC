@@ -7,7 +7,7 @@
     },
     {
       "name": "definition",
-      "answers": ["I am a bot that can help you choose a movie to watch", "I can assist you in choosing a movie to watch", "If you explain to me your preferences in movies I can recommend some for you to watch"],
+      "answers": ["I am a bot that can help you choose a movie to watch", "I can assist you in choosing a movie to watch", "If you explain to me your movi preferences I can recommend some for you to watch"],
       "trigger": ["what can you do", "what do you do", "what is your job", "what are you for", "are you a bot", "what can we talk about", "explain what", "what can we do"]
     },
     {
@@ -25,7 +25,7 @@
     },
     {
       "name": "not_understand",
-      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... Keep going please", "I understand"]
+      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... What movie genres do you like?", "I understand", "What type of movies do you like?", "Do you like any specific actors or directors?"]
     }
   ]
 }
