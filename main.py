@@ -94,6 +94,16 @@ def import_keywords():
     return data
 
 
+def import_responses():
+    """
+    import_responses: Loads the bot-responses.json file
+    :return: Json data
+    """
+    with open('datasets/bot-responses.json') as f:
+        data = json.load(f)
+    return data
+
+
 def identify_genre(genres, message):
     """
     identify_genre: Detects genres and keywords from a list of tokens
@@ -257,6 +267,7 @@ if __name__ == "__main__":
     database = import_raw()
     persons = generate_person_list(database)
     keywords = import_keywords()
+    responses = import_responses()
     print('Initialization complete!')
     user_msg = ''
     while user_msg != ['end']:
