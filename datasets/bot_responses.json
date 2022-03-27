@@ -3,12 +3,16 @@
     {
       "name": "greeting",
       "answers": ["Hello", "Greetings", "Hi", "Welcome"],
-      "trigger": ["Hello", "Greetings", "Hi", "Welcome", "Good morning", "Howdy", "What's up", "Hhat is up", "How are you doing", "How is it going"]
+      "trigger": ["Hello", "Greetings", "Hi", "Welcome", "Good morning", "Howdy", "What's up", "What is up", "How are you doing", "How is it going"],
+      "concat": [", how are you doing?", ", let's talk about movies", ", can you please talk a bit about what type movies you like", ", let's talk about what movies you like, shall we?"],
+      "concat_chance": 90
     },
     {
       "name": "definition",
       "answers": ["I am a bot that can help you choose a movie to watch", "I can assist you in choosing a movie to watch", "If you explain to me your movi preferences I can recommend some for you to watch"],
-      "trigger": ["what can you do", "what do you do", "what is your job", "what are you for", "are you a bot", "what can we talk about", "explain what", "what can we do", "what should we do", "your purpose", "do you serve", "what do I do", "what should I do", "I talk about", "want to talk about", "you talk about"]
+      "trigger": ["what can you do", "what do you do", "what is your job", "what are you for", "are you a bot", "what can we talk about", "explain what", "what can we do", "what should we do", "your purpose", "do you serve", "what do I do", "what should I do", "I talk about", "want to talk about", "you talk about"],
+      "concat": [", we can start talking about your favourite kind of movies if you want", ", what are some good actors", ", what are some movi genres you like?", ", what are some composer's music you like in movies?"],
+      "concat_chance": 90
     },
     {
       "name": "recommend",
@@ -21,11 +25,15 @@
     {
       "name": "rate_movie",
       "answers": ["From 0 to 10, how would you rate that movie?", "What score would you give that movie?", "From 0 to 10, did you like that movie?"],
-      "trigger": ["i watched", "already watched", "have watched"]
+      "trigger": ["i watched", "already watched", "have watched"],
+      "concat": [" (don't worry, I won't tell anybody ;} )"],
+      "concat_chance": 10
     },
     {
       "name": "got_info",
-      "answers": ["I like __INFO__ too!", "Interesting, I'll write that", "Okay, that makes sense, keep going", "Why is it that you like __INFO__?", "What is it that you like about __INFO__?", "So __INFO__... Let's talk more about that"]
+      "answers": ["I like __INFO__ too!", "Interesting, I'll write that", "Okay, that makes sense", "Why is it that you like __INFO__?", "What is it that you like about __INFO__?", "So __INFO__..."],
+      "concat": [", let's talk more about that", ", keep going", ", what are other things you like in movies", ", we can talk about people too if you want, like actors and directors", ", can we talk about your favourite kind of movies?"],
+      "concat_chance": 82
     },
     {
       "name": "not_understand",
