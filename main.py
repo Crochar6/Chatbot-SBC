@@ -3,6 +3,7 @@ import ast
 import re
 import json
 from os.path import exists
+from KaggleDownloader import KaggleDownloader
 
 
 def tokenize(message):
@@ -36,6 +37,10 @@ def import_raw():
     if not exists('datasets/movies_data.pkl'):
         print("Creating movies dataframe using csv files...")
         # Import datasets
+        if not exists('datasets/movies_metadata.csv') or not exists('datasets/keywords.csv') or not exists('datasets/credits.csv'):
+            kaggle_downloader = KaggleDownloader('kaggle.json')
+            kaggle_downloader.download('rounakbanik/the-movies-dataset', 'datasets')
+            
         metadata = pd.read_csv('datasets/movies_metadata.csv',
                                usecols=['id', 'title', 'original_title', 'genres', 'vote_average', 'vote_count', 'original_language',
                                         'runtime', 'release_date', 'overview'],
