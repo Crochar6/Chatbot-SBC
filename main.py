@@ -14,7 +14,7 @@ def tokenize(message):
     :return: List of tokens
     """
     # Eliminate unwanted characters
-    regex_delete = re.compile('[,.!?+*\\/^()=`´#%|]|(-related(?=\s))')
+    regex_delete = re.compile('[,.!?+*\\/^()=`´#%|]|(-related(?=\s|$))')
     regex_space = re.compile('\'s(\s+|$)') # Search for " 's " and remove them
     message = regex_delete.sub('', message)
     message = regex_space.sub(' ', message)
