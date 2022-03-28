@@ -1,13 +1,6 @@
 {
   "states": [
     {
-      "name": "greeting",
-      "answers": ["Hello", "Greetings", "Hi", "Welcome"],
-      "trigger": ["Hello", "Greetings", "Hi", "Welcome", "Good morning", "Howdy", "What's up", "What is up", "How are you doing", "How is it going"],
-      "concat": [", how are you doing?", ", let's talk about movies", ", can you please talk a bit about what type movies you like", ", let's talk about what movies you like, shall we?"],
-      "concat_chance": 90
-    },
-    {
       "name": "definition",
       "answers": ["I am a bot that can help you choose a movie to watch", "I can assist you in choosing a movie to watch", "If you explain to me your movi preferences I can recommend some for you to watch"],
       "trigger": ["what can you do", "what do you do", "what is your job", "what are you for", "are you a bot", "what can we talk about", "explain what", "what can we do", "what should we do", "your purpose", "do you serve", "what do I do", "what should I do", "I talk about", "want to talk about", "you talk about"],
@@ -33,7 +26,14 @@
       "name": "got_info",
       "answers": ["I like __INFO__ too!", "Interesting, I'll write that", "Okay, that makes sense", "Why is it that you like __INFO__?", "What is it that you like about __INFO__?", "So __INFO__..."],
       "concat": [" Have you watched movies about __INFO__?"," Let's talk more about that", " Keep going please", " What are other things you like in movies", " We can talk about people too if you want, like actors and directors"],
-      "concat_chance": 82
+      "concat_chance": 95
+    },
+    {
+      "name": "greeting",
+      "answers": ["Hello", "Greetings", "Hi", "Welcome"],
+      "trigger": ["Hello", "Greetings", "Hi", "Welcome", "Good morning", "Howdy", "What's up", "What is up", "How are you doing", "How is it going"],
+      "concat": [", how are you doing?", ", let's talk about movies", ", can you please talk a bit about what type movies you like", ", let's talk about what movies you like, shall we?"],
+      "concat_chance": 90
     },
     {
       "name": "not_understand",
