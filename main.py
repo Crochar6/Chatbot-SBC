@@ -281,6 +281,7 @@ if __name__ == "__main__":
         msg_names = identify_persons(persons, user_msg)
         punctuate_genres(database, msg_genres, const.GENRE_WEIGHT)
         # print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
+        bot.increment_information(len({*msg_names, *msg_genres, *msg_keywords}))
         bot_answer, should_end = bot.calculate_response(user_msg, msg_keywords, msg_names, [])  # TODO: buscar noms de pel·lis
         print(bot_answer)
         punctuate_persons(database, msg_names, const.PERSON_WEIGHT)
