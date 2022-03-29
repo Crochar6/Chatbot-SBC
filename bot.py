@@ -12,6 +12,13 @@ class Bot:
     def __init__(self, responses):
         self.responses = responses
 
+    def increment_information(self, increment):
+        """
+        Increments the information factor
+        :param increment: number to increment factor by
+        """
+        self.information_factor += increment
+
     def calculate_response(self, user_message, keywords, persons, movies):
         """Calculates the answer the bot should type"""
         should_end = False
@@ -29,7 +36,6 @@ class Bot:
                 if len(user_data) > 0:
                     answers = state['answers']
                     future_state = state
-                    self.information_factor += len(user_data)
                     break
                 else:
                     continue
