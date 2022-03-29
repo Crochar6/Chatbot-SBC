@@ -37,8 +37,8 @@ def import_raw():
     if not exists('datasets/movies_data.pkl'):
         print("Creating movies dataframe using csv files...")
         # Import datasets
+        kaggle_downloader = KaggleDownloader('kaggle.json')
         if not exists('datasets/movies_metadata.csv') or not exists('datasets/keywords.csv') or not exists('datasets/credits.csv'):
-            kaggle_downloader = KaggleDownloader('kaggle.json')
             kaggle_downloader.download('rounakbanik/the-movies-dataset', 'datasets')
             
         metadata = pd.read_csv('datasets/movies_metadata.csv',
@@ -80,6 +80,8 @@ def import_raw():
 
         # Save data
         df.to_pickle('datasets/movies_data.pkl')
+        
+        kaggle_downloader.delete('rounakbanik/the-movies-dataset', 'datasets') # if you haven't downloaded anything it won't delete anything
 
     # Read saved info
     movies_df = pd.read_pickle('datasets/movies_data.pkl')
