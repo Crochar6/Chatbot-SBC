@@ -23,7 +23,7 @@ class KaggleDownloader:
         
         initial_files = [f for f in os.listdir(target) if isfile(join(target, f))]
         
-        api.dataset_download_files(dataset, path=target, unzip=True)
+        api.dataset_download_files(dataset, path=target, quiet=False, unzip=True)
         
         if not dataset in self.files_per_dataset:
             self.files_per_dataset[dataset] = []
