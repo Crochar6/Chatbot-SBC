@@ -3,6 +3,8 @@ import ast
 import re
 import json
 from os.path import exists
+import bot
+import constant as const
 from KaggleDownloader import KaggleDownloader
 
 
@@ -97,6 +99,16 @@ def import_keywords():
     :return: Json data
     """
     with open('datasets/keywords.json') as f:
+        data = json.load(f)
+    return data
+
+
+def import_responses():
+    """
+    import_responses: Loads the bot-responses.json file
+    :return: Json data
+    """
+    with open('datasets/bot_responses.json') as f:
         data = json.load(f)
     return data
 
@@ -264,16 +276,23 @@ if __name__ == "__main__":
     database = import_raw()
     persons = generate_person_list(database)
     keywords = import_keywords()
+    responses = import_responses()
+    bot = bot.Bot(responses)
     print('Initialization complete!')
+    print('You can begin talking with the bot!')
     user_msg = ''
     while user_msg != ['end']:
         user_msg = input()
         user_msg = tokenize(user_msg)
         msg_genres, msg_keywords = identify_genre(keywords, user_msg)
         msg_names = identify_persons(persons, user_msg)
-        punctuate_persons(database, msg_names, 1.3)
-        punctuate_genres(database, msg_genres, 1)
-        punctuate_keywords(database, msg_keywords, 0.8)
-        print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
-    print('You would probably like these movies: ')
+        punctuate_genres(database, msg_genres, const.GENRE_WEIGHT)
+        # print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
+        bot.increment_information(len({*msg_names, *msg_genres, *msg_keywords}))
+        bot_answer, should_end = bot.calculate_response(user_msg, msg_keywords, msg_names, [])  # TODO: buscar noms de pel·lis
+        print(bot_answer)
+        punctuate_persons(database, msg_names, const.PERSON_WEIGHT)
+        punctuate_keywords(database, msg_keywords, const.KEYWORD_WEIGHT)
+        if should_end:
+            break
     print(get_top_n_movies(database, 5)[['title', 'likeness']])
