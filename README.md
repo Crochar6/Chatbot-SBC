@@ -13,3 +13,6 @@ Chatbot implemented without the use of machine learning or chatbot-related libra
 
 ## Use
 Run __main.py__ and talk about what genres, actors, directors and plots you like in movies, after some time talking ask for the bot's movie recommendations.
+
+## Extra
+You can greet him, also ask him about his creators, tell him what does he think about anything and what kind of film the bot likes.
