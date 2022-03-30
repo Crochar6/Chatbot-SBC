@@ -40,7 +40,7 @@
     {
       "name": "definition",
       "answers": ["I am a bot that can help you choose a movie to watch", "I can assist you in choosing a movie to watch", "If you explain to me your movi preferences I can recommend some for you to watch"],
-      "trigger": ["who are you", "what can you do", "what do you do", "what is your job", "what are you for", "are you a bot", "what can we talk about", "explain what", "what can we do", "what should we do", "your purpose", "do you serve", "what do I do", "what should I do", "I talk about", "want to talk about", "you talk about"],
+      "trigger": ["what are you","who are you", "what can you do", "what do you do", "what is your job", "what are you for", "are you a bot", "what can we talk about", "explain what", "what can we do", "what should we do", "your purpose", "do you serve", "what do I do", "what should I do", "I talk about", "want to talk about", "you talk about"],
       "concat": [", we can start talking about your favourite kind of movies if you want", ", what are some good actors", ", what are some movie genres you like?", ", what are some composer's music you like in movies?"],
       "concat_chance": 90
     },
