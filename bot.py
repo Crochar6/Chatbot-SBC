@@ -1,6 +1,6 @@
 import random
 import constant as const
-
+import re
 
 class Bot:
     """Bot class to create appropriate answer"""
@@ -42,7 +42,7 @@ class Bot:
 
             # Search in possible answers
             for trigger in state['trigger']:
-                if trigger.lower() in user_message:
+                if re.match(trigger, user_message.lower()):
                     answers = state['answers']
                     future_state = state
 

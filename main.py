@@ -185,11 +185,13 @@ def punctuate_genres(df, genres, weight):
     :param weight: Value to increment likeness by
     :return: Number of moves modified
     """
+    #print('punctuate_genres')
     incremented = 0
-    for index, row in df.iterrows():
-        if len(row['genres_set'].intersection(genres)) > 0:
-            df.loc[index, 'likeness'] += weight
-            incremented += 1
+    if len(genres) > 0:
+        for index, row in df.iterrows():
+            if len(row['genres_set'].intersection(genres)) > 0:
+                df.loc[index, 'likeness'] += weight
+                incremented += 1
     return incremented
 
 
@@ -203,12 +205,14 @@ def punctuate_keywords(df, keywords, weight):
     :param weight: Value to increment likeness by
     :return: Number of moves modified
     """
+    #print('punctuate_keywords')
     incremented = 0
-    for index, row in df.iterrows():
-        if len(row['keywords_set'].intersection(keywords)) > 0 or \
-                any([word in row['overview'] for word in keywords]):    # Search keywords inside
-            df.loc[index, 'likeness'] += weight
-            incremented += 1
+    if len(keywords) > 0:
+        for index, row in df.iterrows():
+            if len(row['keywords_set'].intersection(keywords)) > 0 or \
+                    any([word in row['overview'] for word in keywords]):    # Search keywords inside
+                df.loc[index, 'likeness'] += weight
+                incremented += 1
     return incremented
 
 
@@ -221,11 +225,13 @@ def punctuate_persons(df, persons, weight):
     :param weight: Value to increment likeness by
     :return: Number of moves modified
     """
+    #print('punctuate_persons')
     incremented = 0
-    for index, row in df.iterrows():
-        if len(row['cast_set'].intersection(persons)) > 0 or len(row['crew_set'].intersection(persons)) > 0:
-            df.loc[index, 'likeness'] += weight
-            incremented += 1
+    if len(persons) > 0:
+        for index, row in df.iterrows():
+            if len(row['cast_set'].intersection(persons)) > 0 or len(row['crew_set'].intersection(persons)) > 0:
+                df.loc[index, 'likeness'] += weight
+                incremented += 1
     return incremented
 
 
@@ -238,10 +244,12 @@ def punctuate_language(df, languages, weight):
     :param weight: Value to increment likeness by
     :return: Number of moves modified
     """
+    #print('punctuate_language')
     incremented = 0
-    for language in languages:
-        incremented += len(df.loc[df['original_language'] == language])
-        df.loc[df['original_language'] == language, 'likeness'] += weight
+    if len(languages) > 0:
+        for language in languages:
+            incremented += len(df.loc[df['original_language'] == language])
+            df.loc[df['original_language'] == language, 'likeness'] += weight
     return incremented
 
 
@@ -254,10 +262,12 @@ def punctuate_movies(df, titles, weight):
     :param weight: Value to increment likeness by
     :return: Number of moves modified
     """
+    #print('punctuate_movies')
     incremented = 0
-    for title in titles:
-        incremented += len(df.loc[(df[['original_title', 'title']] == title).any(axis=1)])
-        df.loc[(df[['original_title', 'title']] == title).any(axis=1), 'likeness'] += weight
+    if len(titles) > 0:
+        for title in titles:
+            incremented += len(df.loc[(df[['original_title', 'title']] == title).any(axis=1)])
+            df.loc[(df[['original_title', 'title']] == title).any(axis=1), 'likeness'] += weight
     return incremented
 
 
