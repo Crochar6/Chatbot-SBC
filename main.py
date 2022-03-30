@@ -5,6 +5,7 @@ import json
 from os.path import exists
 import bot
 import constant as const
+from KaggleDownloader import KaggleDownloader
 
 
 def tokenize(message):
@@ -16,7 +17,7 @@ def tokenize(message):
     :return: List of tokens
     """
     # Eliminate unwanted characters
-    regex_delete = re.compile('[,.!?+*/^()=`´#%|]')
+    regex_delete = re.compile('[,.!?+*\\/^()=`´#%|]|(-related(?=\s|$))')
     regex_space = re.compile('\'s(\s+|$)') # Search for " 's " and remove them
     message = regex_delete.sub('', message)
     message = regex_space.sub(' ', message)
@@ -38,6 +39,10 @@ def import_raw():
     if not exists('datasets/movies_data.pkl'):
         print("Creating movies dataframe using csv files...")
         # Import datasets
+        kaggle_downloader = KaggleDownloader('kaggle.json')
+        if not exists('datasets/movies_metadata.csv') or not exists('datasets/keywords.csv') or not exists('datasets/credits.csv'):
+            kaggle_downloader.download('rounakbanik/the-movies-dataset', 'datasets')
+            
         metadata = pd.read_csv('datasets/movies_metadata.csv',
                                usecols=['id', 'title', 'original_title', 'genres', 'vote_average', 'vote_count', 'original_language',
                                         'runtime', 'release_date', 'overview'],
@@ -77,6 +82,8 @@ def import_raw():
 
         # Save data
         df.to_pickle('datasets/movies_data.pkl')
+        
+        kaggle_downloader.delete('rounakbanik/the-movies-dataset', 'datasets') # if you haven't downloaded anything it won't delete anything
 
     # Read saved info
     movies_df = pd.read_pickle('datasets/movies_data.pkl')
@@ -289,12 +296,13 @@ if __name__ == "__main__":
         user_msg = tokenize(user_msg)
         msg_genres, msg_keywords = identify_genre(keywords, user_msg)
         msg_names = identify_persons(persons, user_msg)
-        punctuate_persons(database, msg_names, const.PERSON_WEIGHT)
         punctuate_genres(database, msg_genres, const.GENRE_WEIGHT)
-        punctuate_keywords(database, msg_keywords, const.KEYWORD_WEIGHT)
         # print(f'Genres: {msg_genres}, Keywords: {msg_keywords}, Person names: {msg_names}')
+        bot.increment_information(len({*msg_names, *msg_genres, *msg_keywords}))
         bot_answer, should_end = bot.calculate_response(user_msg, msg_keywords, msg_names, [])  # TODO: buscar noms de pel·lis
         print(bot_answer)
+        punctuate_persons(database, msg_names, const.PERSON_WEIGHT)
+        punctuate_keywords(database, msg_keywords, const.KEYWORD_WEIGHT)
         if should_end:
             break
     print(get_top_n_movies(database, 5)[['title', 'likeness']])
