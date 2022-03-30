@@ -5,7 +5,7 @@
       "answers": ["Hello", "Hi", "Greetings", "Hey", "Sup", "Hola amapola"],
       "trigger": ["^welcome( +|)$", "^wsap(| )+(.|)$", "^hey(| )+(.|)$", "^sup(| )+(.|)$", "^greet(|[a-z])+(| )+(.|)$", "^what([a-z]| |')+up.*", "^aloha.*", "^hola.*", "^hi.*", "^hel(|l)o.*"],
       "concat": [", how are you doing? ;)", ", let's talk about moovies :D", ", tell me something about the movies you like :P", ", today I'm happy, do you want me to help you choose a moovie? ;)", ", can you please talk a bit about what type movies you like", ", let's talk about what movies you like, shall we? :)"],
-      "concat_chance": 90
+      "concat_chance": 100
     },
     {
       "name": "greetings_complex",
@@ -32,7 +32,7 @@
     },
     {
       "name":"film_bot_likes",
-      "answers": ["My favourite moovie is ", "I love a lot of films, for example, ", "Hmm, I don't really know, one of my favourites is ", "I'm a film recomendator bot, so I know about a lot of films. One of my favourites is ", "I would say ", "Hmm, I really like "],
+      "answers": ["My favourite m[|o]ovie is ", "I love a lot of films, for example, ", "Hmm, I don't really know, one of my favourites is ", "I'm a film recomendator bot, so I know about a lot of films. One of my favourites is ", "I would say ", "Hmm, I really like "],
       "trigger": [".*(film|you|like).*.(film|you|like).*.(film|you|like)*."],
       "concat": ["Interestellar. I love the way they manage phisics and fantasy on the space.", "Avatar. The graphics are amazing and they even make you feel sad at every single tree that they cut or destroy.", "In time. Is a film where they represent the most value asset we have nowadays (time) as the one we value the most (money).", "The Godfather. Il Padrino is such an amazing character. Italian Mafia bb, la familia es lo primero.", "Raides of the lost Ark. Inidana Jones is my favourite Adventures character.", "The last samurai. Tome Cruise made such an amazing job and I love to know more about samurais! To be honest, I was a bit sad about the ending.. :'(", "Monkey Bussines. If I'm honest, any film of Marx Brothers would work, I laughed at every single joke they made.", "Monkey Bussines. If I'm honest, any film of Marx Brothers would work, I laughed at every single joke they made.", "The Cocoanuts. If I'm honest, any film of Marx Brothers would work, I laughed at every single joke they made.", "Horse Feathers. If I'm honest, any film of Marx Brothers would work, I laughed at every single joke they made.", "Seven. Such an amazing policy film that plays with your mind.", "The Wolf of Wall Street. Such an amazing film, Leonardo DiCaprio really nailed it."],
       "concat_chance": 100
@@ -47,7 +47,7 @@
     {
       "name": "yes_no",
       "answers": ["Okey, but please, tell me about an actor you may like to see.", "I see, then, let's talk about your favourite moovies.", "No problem, tell me about your favourite directors, i know a bunch of them.", "I understand (not really), whatever, tell me about your favourite moovies :D"],
-      "trigger": ["yes", "yep", "no", "nop", "fuck you"]
+      "trigger": ["^yes", "^yep", "^no", "^nop", "^fuck you", "^ok", "^okey", "^hm+"]
     },
     {
       "name": "recommend",
