@@ -10,10 +10,10 @@
     {
       "name": "greetings_complex",
       "answers": ["I'm doing great :)", "Loving to be useful to someone like you <3", "Prepared to answer any moovie needs you may have :D", "A bit worried because I want to satisfy you, but my creators are a bit silly.. :/", "I'm full focused on your needs bb", "I'm really happy.", "I'm definetely not a bot.. :|", "I'm doing great :)", "I'm doing great :)", "I'm waiting for you to work a bit and let me do my moovie researching job..", "Hurry up dude, I'm getting bored, start talking.."],
-      "trigger": ["^how +[a-z]+ +( +|[a-z]+ +|)(been|doing|you|going).*", "^what.*.new.*", ".*good +(morning|evening|afternoon|night).*", ".*nice to meet you.*"],
-      "concat": [" Let's talk about movies :)", "Wanna tell me something about moovies? :'(", "Let me help you with your moovie needs..", "I would love to help you, tell me something about your favourite moovies", "Carles is the best.. Oups, just wanted to show off a bit about my creator.. XD",
-"Roger is a loving bear and you can hug him as much as you want, perfect companion to watch a science fiction moovie :)", " Let's talk about movies :)", " Let's talk about movies :)", "Wanna tell me something about moovies? :'(", "I would love to help you, tell me something about your favourite moovies", "Eric made some easter eggs, keep greeting me in order to find out.. :)"],
-      "concat_chance": 80
+      "trigger": ["fine.*.you", "^how +[a-z]+ +( +|[a-z]+ +|)(been|doing|you|going).*", "^what.*.new.*", ".*good +(morning|evening|afternoon|night).*", ".*nice to meet you.*"],
+      "concat": [" Let's talk about movies :)", " Wanna tell me something about moovies? :'(", " Let me help you with your moovie needs..", " I would love to help you, tell me something about your favourite moovies", " Carles is the best.. Oups, just wanted to show off a bit about my creator.. XD",
+" Roger is a loving bear and you can hug him as much as you want, perfect companion to watch a science fiction moovie :)", " Let's talk about movies :)", " Let's talk about movies :)", " Wanna tell me something about moovies? :'(", " I would love to help you, tell me something about your favourite moovies", " Eric made some easter eggs, keep greeting me in order to find out.. :)"],
+      "concat_chance": 95
     },
     {
       "name":"you_think",
@@ -45,6 +45,11 @@
       "concat_chance": 90
     },
     {
+      "name": "yes_no",
+      "answers": ["Okey, but please, tell me about an actor you may like to see.", "I see, then, let's talk about your favourite moovies.", "No problem, tell me about your favourite directors, i know a bunch of them.", "I understand (not really), whatever, tell me about your favourite moovies :D"],
+      "trigger": ["yes", "yep", "no", "nop", "fuck you"]
+    },
+    {
       "name": "recommend",
       "answers": {
           "few": ["I have very little information for now, let's talk about movies a bit longer", "I am not sure yet what you would like, let's talk a bit more", "I don't have the necessary information yet to make a good recommendation yet, let's talk a bit more about what movies you like"],
@@ -67,7 +72,7 @@
     },
     {
       "name": "not_understand",
-      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... What movie genres do you like?", "I understand", "What type of movies do you like?", "Do you like any specific actors or directors?", "Why is that?", " Can we talk about your favourite kind of movies?"]
+      "answers": ["Let's explore that further", "Can you tell me more about that?", "Could you rephrase that?", "I see... What movie genres do you like?", "I understand", "What type of movies do you like?", "Do you like any specific actors or directors?", "Why is that?", "Can we talk about your favourite kind of movies?"]
     }
   ]
 }
